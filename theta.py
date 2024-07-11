@@ -5,19 +5,6 @@ import cv2
 
 k = 29
 rad = mt.radians(k)
-cos0 = np.arange(480 ,dtype=float)
-cos=np.cos(rad)
-cos0[0] = cos
-print(cos0[0])
-r=rad-pxtheta
-while 480>i:
-    print(cos0[i-1])
-    print(r)
-    if 239>i:
-        r=r-pxtheta
-    else:
-        r=r+pxtheta
-
 pxtheta = rad/240
 print(pxtheta)
 pxk = mt.degrees(pxtheta)
@@ -71,3 +58,14 @@ try:
                         j = j + 1
                 i = i + 1
                 j = 1
+        images = np.hstack((color_image, depth_colormap))
+        #
+        cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('RealSense', images)
+        #
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
+            break
+finally:
+    #
+    pipeline.stop()
